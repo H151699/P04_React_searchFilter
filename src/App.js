@@ -37,10 +37,25 @@ class App extends Component{
   constructor(props){
     super(props);
       this.state ={
-        movies: movieDB
+        movies: movieDB,
+        term:'',
       
     }
-  }
+    this.searchHandler = this.searchHandler.bind(this);
+
+
+}// constructor
+
+
+
+    // searchHandler method
+    searchHandler(event){
+      event.setState({term: event.target.value})
+    }
+
+
+
+
  
   render(){ 
 
@@ -49,7 +64,7 @@ class App extends Component{
     <div className="App">
 
     <form><input type="text"
-                  onChange={this.searchHandler} />
+                  onChange={this.searchHandler.bind(this)} />
     
     
     </form>
