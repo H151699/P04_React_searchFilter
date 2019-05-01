@@ -28,8 +28,53 @@ const movieDB = [
       "@uri": "/api/contentpanel/element/7394.json",
       "sortIndex": 3,
       "title": "Thriller"
-  }
+  // }
+  //    {  id : 1,
+  //   name: "iphone6s",
+  //   cost: "600",
+  //   description: "Lorem ipsum dolor sit amet,serunt mollit anim id est laborum."
+  // },
+  // {
+  //   id : 2,
+  //   name: "galaxy9",
+  //   cost: "1200",
+  //   description: "Lorem ipsum dolor sit amet,serunt mollit anim id est laborum."
+  // },
+  // {
+  //   id : 3,
+  //   name: "iphone10",
+  //   cost: "1500",
+  //   description: "Lorem ipsum dolor sit amet,serunt mollit anim id est laborum."
+  // },
+  // {
+  //   id : 4,
+  //   name: "alcatel1x",
+  //   cost: "300",
+  //   description: "Lorem ipsum dolor sit amet,serunt mollit anim id est laborum."
+  // },
+  // {
+  //   id : 5,
+  //   name: "lenovo",
+  //   cost: "500",
+  //   description: "Lorem ipsum dolor sit amet,serunt mollit anim id est laborum."
+  // },
+  // {
+  //  id : 6,
+  //  name: "lieco",
+  //  cost: "600",
+  //  description: "Lorem ipsum dolor sit amet,serunt mollit anim id est laborum."
+   }
 ]
+
+/***************************
+ * Filter function
+ */
+
+function searchFor(term){
+  return function(mv){ 
+    return mv.title.toLowerCase().includes(term.toLowerCase()) || false;  // match term with the "title"
+  }
+}
 
 
 class App extends Component{
@@ -46,12 +91,19 @@ class App extends Component{
 
 }// constructor
 
-
+/*******    Methods area     **************************************************************************************************************** */
 
     // searchHandler method
     searchHandler(event){
-      event.setState({term: event.target.value})
+      this.setState({term: event.target.value})
     }
+
+  
+    
+
+    // filter()
+
+/*******    Methods area     **************************************************************************************************************** */
 
 
 
@@ -59,17 +111,21 @@ class App extends Component{
  
   render(){ 
 
+    const {term, movies} = this.state;
+
   return (
 
     <div className="App">
 
     <form><input type="text"
-                  onChange={this.searchHandler.bind(this)} />
+                  onChange={this.searchHandler.bind(this)}
+                      value = {term}
+                  />
     
     
     </form>
 
-           {this.state.movies.map((movie=>           
+           {movies.filter(searchFor(term)).map((movie=>           
            <div>
               <h3>@id: {movie["@id"]}</h3>
               <h3>Title: {movie.title}</h3>
